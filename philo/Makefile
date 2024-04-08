@@ -2,11 +2,16 @@ NAME = philo
 
 CC = cc
 FLAGS = -Wall -Wextra -Werror -Ofast
+DEBUG_FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 LIBS = -pthread
 
 SRC_DIR = src/
-SRC_FILES =  $(addprefix $(SRC_DIR), main.c)
+SRC_FILES =  $(addprefix $(SRC_DIR), \
+			 main.c \
+			 routine.c \
+			 utils.c \
+			 input_validation.c)
 
 OBJ_DIR = obj/
 OBJ_FILES = $(addprefix $(OBJ_DIR), $(notdir $(SRC_FILES:.c=.o)))
@@ -36,4 +41,9 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug:
+	@echo "Compiling debug version"
+	@$(CC) $(DEBUG_FLAGS) $(SRC_FILES) -o $(NAME) $(LIBS)
+	@echo "Done"
+
+.PHONY: all clean fclean re debug

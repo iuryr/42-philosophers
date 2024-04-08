@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 14:28:51 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/08 18:34:06 by iusantos         ###   ########.fr       */
+/*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
+/*   Updated: 2024/04/08 18:36:02 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
 
-int	main(int argc, char **argv)
+void	eat(int time_to_eat)
 {
-	t_meta	meta;
+	struct timeval	start_time;
+	struct timeval	now;
 
-	if (argc < 5 || argc > 6)
+	gettimeofday(&start_time, NULL);
+	printf("%ld - Philo is eating\n", start_time.tv_usec);
+	while (42)
 	{
-		printf("Usage: ./philo number_of_philosophers time_to_die time_to_eat "
-			"time_to sleep [number_of_times_each_philosopher_must_eat]\n");
-		return (EXIT_FAILURE);
+		gettimeofday(&now, NULL);
+		if (now.tv_sec - start_time.tv_usec > (long) time_to_eat)
+		{
+			printf("Finished eating...\n");
+			break ;
+		}
 	}
-	set_meta(&meta, argc, argv);
-	if (validate_inputs(&meta) != 0)
-	{
-		printf("%s", meta.error_msg);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
 }
