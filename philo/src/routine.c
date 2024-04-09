@@ -6,26 +6,33 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/08 18:36:02 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:14:29 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
 
-void	eat(int time_to_eat)
+void	*routine(void *arg)
 {
-	struct timeval	start_time;
-	struct timeval	now;
+	t_philo	*philo;
 
-	gettimeofday(&start_time, NULL);
-	printf("%ld - Philo is eating\n", start_time.tv_usec);
+	philo = (t_philo *) arg;
+	print_log(philo);
 	while (42)
+		eat(philo);
+	// printf("%lu - Philo %d: current timestamp\n", get_timestamp(philo), philo->id); 
+	return NULL;
+}
+
+void	eat(t_philo *philo)
+{
+	philo->state = EATING;
+	print_log(philo);
+	if (philo->last_meal == 0)
 	{
-		gettimeofday(&now, NULL);
-		if (now.tv_sec - start_time.tv_usec > (long) time_to_eat)
-		{
-			printf("Finished eating...\n");
-			break ;
-		}
+		philo->last_meal = get_timestamp(philo);
+		while (get_time_ms() - philo->sim_start_time < philo->tt_eat);
 	}
+	else
+		while (get_time_ms() - philo->last_meal < philo->tt_eat);
 }

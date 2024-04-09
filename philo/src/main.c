@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:28:51 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/08 18:34:06 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:24:45 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ int	main(int argc, char **argv)
 		printf("%s", meta.error_msg);
 		return (EXIT_FAILURE);
 	}
+	create_philos(&meta);
+	start_simulation(meta);
+	free(meta.philos);
 	return (EXIT_SUCCESS);
 }

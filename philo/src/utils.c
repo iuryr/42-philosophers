@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:05:00 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/08 18:35:32 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:43:32 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,14 @@ unsigned int	philo_atoul(const char *nptr)
 		nptr++;
 	}
 	return (number);
+}
+
+unsigned long	get_time_ms(void)
+{
+	unsigned long	start_time_ms;
+	struct timeval	start_time;
+
+	gettimeofday(&start_time, NULL);
+	start_time_ms = start_time.tv_sec * 1000 + start_time.tv_usec / 1000;
+	return (start_time_ms);
 }

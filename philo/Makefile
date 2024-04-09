@@ -11,7 +11,9 @@ SRC_FILES =  $(addprefix $(SRC_DIR), \
 			 main.c \
 			 routine.c \
 			 utils.c \
-			 input_validation.c)
+			 utils2.c \
+			 input_validation.c \
+			 simulation.c)
 
 OBJ_DIR = obj/
 OBJ_FILES = $(addprefix $(OBJ_DIR), $(notdir $(SRC_FILES:.c=.o)))

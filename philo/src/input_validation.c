@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/08 18:34:30 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:13:14 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,10 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	meta->argc = argc;
 	meta->argv = argv;
 	meta->error_msg = NULL;
+	meta->sim_start_time = get_time_ms();
 	meta->n_philos = philo_atouint(argv[1]);
-	meta->tt_death = philo_atoul(argv[2]);
-	meta->tt_eat = philo_atoul(argv[3]);
-	meta->tt_sleep = philo_atoul(argv[4]);
 	if (argc == 6)
-	{
 		meta->opt_param_set = 1;
-		meta->max_dinners = philo_atouint(argv[5]);
-	}
 	else
 		meta->opt_param_set = 0;
 }
