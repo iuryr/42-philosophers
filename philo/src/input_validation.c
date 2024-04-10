@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/09 17:13:14 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:09:59 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	meta->error_msg = NULL;
 	meta->sim_start_time = get_time_ms();
 	meta->n_philos = philo_atouint(argv[1]);
+	pthread_mutex_init(&(meta->log_mutex), NULL);
 	if (argc == 6)
 		meta->opt_param_set = 1;
 	else

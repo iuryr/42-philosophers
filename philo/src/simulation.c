@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/09 18:24:58 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/10 12:20:45 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ static int	aloc_philo_array(t_meta *meta)
 	return (1);
 }
 
-void	init_philos(t_meta *meta)
+static void	init_philos(t_meta *meta)
 {
 	unsigned int	i;
-	
-	if (aloc_philo_array(meta) == 0)
-		exit(EXIT_FAILURE);
+
 	i = -1;
 	while (++i < meta->n_philos)
 	{
@@ -37,6 +35,7 @@ void	init_philos(t_meta *meta)
 		meta->philos[i].tt_death = philo_atoul(meta->argv[2]);
 		meta->philos[i].tt_eat = philo_atoul(meta->argv[3]);
 		meta->philos[i].tt_sleep = philo_atoul(meta->argv[4]);
+		meta->philos[i].last_timestamp = 0;
 		meta->philos[i].last_meal = 0;
 		if (meta->opt_param_set == 1)
 		{
@@ -45,7 +44,15 @@ void	init_philos(t_meta *meta)
 		}
 		else
 			meta->philos[i].opt_param_set = 0;
+		meta->philos[i].log_mutex = &(meta->log_mutex);
 	}
+}
+
+void	create_philos(t_meta *meta)
+{
+	if (aloc_philo_array(meta) == 0)
+		exit(EXIT_FAILURE);
+	init_philos(meta);
 }
 
 void	start_simulation(t_meta meta)

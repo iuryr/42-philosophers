@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/09 18:14:29 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:13:53 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	print_log(philo);
-	while (42)
+	// print_log(philo);
+	int i = 0;
+	while (i++ < 3)
+	{
 		eat(philo);
+		philo_sleep(philo);
+		think(philo);
+	}
 	// printf("%lu - Philo %d: current timestamp\n", get_timestamp(philo), philo->id); 
 	return NULL;
 }
@@ -27,12 +32,24 @@ void	*routine(void *arg)
 void	eat(t_philo *philo)
 {
 	philo->state = EATING;
+	philo->last_timestamp = get_timestamp(philo);
 	print_log(philo);
-	if (philo->last_meal == 0)
-	{
-		philo->last_meal = get_timestamp(philo);
-		while (get_time_ms() - philo->sim_start_time < philo->tt_eat);
-	}
-	else
-		while (get_time_ms() - philo->last_meal < philo->tt_eat);
+	while (get_timestamp(philo) - philo->last_timestamp < philo->tt_eat);
+	philo->last_meal = philo->last_timestamp;
+}
+
+void	philo_sleep(t_philo *philo)
+{
+	philo->state = SLEEPING;
+	philo->last_timestamp = get_timestamp(philo);
+	print_log(philo);
+	while (get_timestamp(philo) - philo->last_timestamp < philo->tt_eat);
+}
+
+void	think(t_philo *philo)
+{
+	philo->state = THINKING;
+	philo->last_timestamp = get_timestamp(philo);
+	print_log(philo);
+	while (get_timestamp(philo) - philo->last_timestamp < philo->tt_eat);
 }

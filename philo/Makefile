@@ -12,6 +12,7 @@ SRC_FILES =  $(addprefix $(SRC_DIR), \
 			 routine.c \
 			 utils.c \
 			 utils2.c \
+			 time.c \
 			 input_validation.c \
 			 simulation.c)
 

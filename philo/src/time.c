@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 14:50:54 by iusantos         ###   ########.fr       */
+/*   Created: 2024/04/10 14:50:14 by iusantos          #+#    #+#             */
+/*   Updated: 2024/04/10 14:52:54 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
 
-void	print_log(t_philo *philo)
+unsigned long	get_time_ms(void)
 {
-	pthread_mutex_lock(philo->log_mutex);
-	printf("%lu - ", philo->last_timestamp);
-	printf("%d - ", philo->id);
-	if (philo->state == EATING)
-		printf("is eating.\n");
-	else if (philo->state == SLEEPING)
-		printf("is sleeping.\n");
-	else if (philo->state == THINKING)
-		printf("is thinking.\n");
-	else
-		printf("is DED.\n");
-	pthread_mutex_unlock(philo->log_mutex);
+	unsigned long	time_ms;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	time_ms = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (time_ms);
+}
+
+unsigned long	get_timestamp(t_philo *philo)
+{
+	unsigned long	timestamp;
+
+	timestamp = get_time_ms() - philo->sim_start_time;
+	return (timestamp);
 }
