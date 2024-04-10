@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 15:13:53 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:22:42 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	// print_log(philo);
+	//delete counter later
 	int i = 0;
 	while (i++ < 3)
 	{
@@ -25,7 +25,6 @@ void	*routine(void *arg)
 		philo_sleep(philo);
 		think(philo);
 	}
-	// printf("%lu - Philo %d: current timestamp\n", get_timestamp(philo), philo->id); 
 	return NULL;
 }
 
