@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 17:06:31 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:25:41 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	}
 	else
 		meta->opt_param_set = 0;
-	}
+}
 
 int	validate_inputs(t_meta *meta)
 {
