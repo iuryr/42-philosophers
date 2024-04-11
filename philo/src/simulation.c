@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 12:20:45 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:33:18 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ static void	init_philos(t_meta *meta)
 		else
 			meta->philos[i].opt_param_set = 0;
 		meta->philos[i].log_mutex = &(meta->log_mutex);
+		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
 	}
 }
 
-void	create_philos(t_meta *meta)
+void	create_threads(t_meta *meta)
 {
 	if (aloc_philo_array(meta) == 0)
 		exit(EXIT_FAILURE);
@@ -59,6 +60,7 @@ void	start_simulation(t_meta meta)
 {
 	unsigned int	i;
 
+	pthread_create(&(meta.overseer), NULL, oversee, &meta);
 	i = 0;
 	while (i < meta.n_philos)
 	{
@@ -71,9 +73,11 @@ void	start_simulation(t_meta meta)
 		pthread_join(*(meta.philos[i].tid), NULL);
 		i++;
 	}
+	pthread_join(meta.overseer, NULL);
 	i = 0;
 	while (i < meta.n_philos)
 	{
+		pthread_mutex_destroy(&(meta.philos[i].state_mutex));
 		free(meta.philos[i].tid);
 		i++;
 	}

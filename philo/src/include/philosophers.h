@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 15:14:09 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:09:44 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 	unsigned long	last_timestamp;
 	unsigned long	last_meal;
 	pthread_mutex_t	*log_mutex;
+	pthread_mutex_t	state_mutex;
 }	t_philo;
 
 typedef struct s_meta
@@ -58,10 +59,11 @@ typedef struct s_meta
 	unsigned int	max_dinners;
 	pthread_mutex_t	log_mutex;
 	t_philo			*philos;
+	pthread_t		overseer;
 }	t_meta;
 
 //philos
-void			create_philos(t_meta *meta);
+void			create_threads(t_meta *meta);
 void			start_simulation(t_meta meta);
 
 //routine
@@ -69,7 +71,13 @@ void			*routine(void *arg);
 void			eat(t_philo *philo);
 void			philo_sleep(t_philo *philo);
 void			think(t_philo *philo);
+void			change_state(char c, t_philo *philo);
 
+//overseer
+
+void			*oversee(void *arg);
+int				check_philo_alive(t_philo philo);
+void			kill_others(t_meta *meta);
 //input validation
 void			set_meta(t_meta *meta, int argc, char **argv);
 int				validate_inputs(t_meta *meta);

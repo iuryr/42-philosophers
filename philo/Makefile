@@ -10,6 +10,7 @@ SRC_DIR = src/
 SRC_FILES =  $(addprefix $(SRC_DIR), \
 			 main.c \
 			 routine.c \
+			 overseer.c \
 			 utils.c \
 			 utils2.c \
 			 time.c \
@@ -46,6 +47,7 @@ re: fclean all
 
 debug:
 	@echo "Compiling debug version"
+	compiledb-plus make -n
 	@$(CC) $(DEBUG_FLAGS) $(SRC_FILES) -o $(NAME) $(LIBS)
 	@echo "Done"
 
