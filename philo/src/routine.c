@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 15:39:16 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:53:46 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	//delete counter later
 	while (42)
 	{
+		if (philo->opt_param_set == 1
+			&& philo->n_dinners == philo->max_dinners)
+			change_state('D', philo);
 		if (philo->state == DED)
 			break;
 		eat(philo);
@@ -44,6 +46,7 @@ void	eat(t_philo *philo)
 	print_log(philo);
 	while ((get_timestamp(philo) - philo->last_timestamp < philo->tt_eat)
 		&& philo->state != DED);
+	philo->n_dinners++;
 }
 
 void	philo_sleep(t_philo *philo)
@@ -66,7 +69,6 @@ void	think(t_philo *philo)
 	print_log(philo);
 }
 
-//Thinking, Sleeping, Eating, D
 void	change_state(char c, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->state_mutex));

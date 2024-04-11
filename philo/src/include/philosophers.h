@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 15:09:44 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:50:23 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	unsigned long	tt_death;
 	unsigned long	tt_eat;
 	unsigned long	tt_sleep;
+	unsigned int	n_dinners;
 	unsigned int	opt_param_set;
 	unsigned int	max_dinners;
 	unsigned long	last_timestamp;

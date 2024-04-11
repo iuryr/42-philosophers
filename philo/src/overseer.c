@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 15:26:05 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:02:15 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 void	*oversee(void *arg)
 {
 	t_meta	*meta;
+	unsigned int i;
 
 	meta = (t_meta *) arg;
-	usleep(10000); //10miliseconds
+	usleep(10000);
+	i = 0;
 	while(42)
 	{
-		unsigned int i;
-		i = 0;
 		while (i < meta->n_philos)
 		{
 			if (check_philo_alive(meta->philos[i]) == 0)
 			{
+				if (meta->opt_param_set == 1
+					&& meta->philos[i].n_dinners == meta->max_dinners)
+					break;
 				meta->philos[i].last_timestamp = get_timestamp(meta->philos);
 				change_state('D', &(meta->philos[i]));
 				print_log(&(meta->philos[i]));
@@ -43,7 +46,7 @@ void	*oversee(void *arg)
 
 int	check_philo_alive(t_philo philo)
 {
-	if (get_timestamp(&philo) - philo.last_meal < philo.tt_death)
+	if ((get_timestamp(&philo) - philo.last_meal < philo.tt_death))
 		return 1;
 	return 0;
 }

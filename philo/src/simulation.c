@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 15:33:18 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:51:29 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	init_philos(t_meta *meta)
 		else
 			meta->philos[i].opt_param_set = 0;
 		meta->philos[i].log_mutex = &(meta->log_mutex);
+		meta->philos[i].n_dinners = 0;
 		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
 	}
 }
