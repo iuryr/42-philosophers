@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 16:53:46 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:25:48 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	while (42)
+	while (42 && philo->simdata->go_on)
 	{
-		if (philo->opt_param_set == 1
-			&& philo->n_dinners == philo->max_dinners)
-			change_state('D', philo);
-		if (philo->state == DED)
+		// if (philo->n_dinners == philo->simdata->max_dinners)
+		// 	change_state('D', philo);
+		if (philo->state == DED || philo->simdata->go_on == 0)
 			break;
 		eat(philo);
-		if (philo->state == DED)
+		if (philo->state == DED || philo->simdata->go_on == 0)
 			break;
 		philo_sleep(philo);
-		if (philo->state == DED)
+		if (philo->state == DED || philo->simdata->go_on == 0)
 			break;
 		think(philo);
 	}
@@ -41,11 +40,10 @@ void	eat(t_philo *philo)
 		return ;
 	//essa mundança de estado abaixo só acontece caso ele consiga comer.
 	change_state('E', philo);
-	philo->last_timestamp = get_timestamp(philo);
-	philo->last_meal = philo->last_timestamp;
 	print_log(philo);
-	while ((get_timestamp(philo) - philo->last_timestamp < philo->tt_eat)
-		&& philo->state != DED);
+	usleep(philo->simdata->tt_eat * 1000);
+	// while ((get_timestamp(philo) - philo->last_timestamp < philo->tt_eat)
+	// 	&& philo->state != DED);
 	philo->n_dinners++;
 }
 
@@ -54,10 +52,10 @@ void	philo_sleep(t_philo *philo)
 	if (philo->state == DED)
 		return ;
 	change_state('S', philo);
-	philo->last_timestamp = get_timestamp(philo);
 	print_log(philo);
-	while ((get_timestamp(philo) - philo->last_timestamp < philo->tt_sleep)
-		&& philo->state != DED);
+	// while ((get_timestamp(philo) - philo->last_timestamp < philo->tt_sleep)
+	// 	&& philo->state != DED);
+	usleep(philo->simdata->tt_sleep * 1000);
 }
 
 void	think(t_philo *philo)
@@ -65,17 +63,20 @@ void	think(t_philo *philo)
 	if (philo->state == DED)
 		return ;
 	change_state('T', philo);
-	philo->last_timestamp = get_timestamp(philo);
 	print_log(philo);
 }
 
 void	change_state(char c, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->state_mutex));
+	philo->last_timestamp = philo_get_timestamp(philo);
 	if (c == 'S')
 		philo->state = SLEEPING;
 	else if (c == 'E')
+	{
 		philo->state = EATING;
+		philo->last_meal = philo->last_timestamp;
+	}
 	else if (c == 'T')
 		philo->state = THINKING;
 	else

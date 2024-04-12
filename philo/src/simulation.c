@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 16:51:29 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:47:40 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,56 +30,59 @@ static void	init_philos(t_meta *meta)
 	{
 		meta->philos[i].id = i + 1;
 		meta->philos[i].state = THINKING;
-		meta->philos[i].sim_start_time = meta->sim_start_time;
+		meta->philos[i].simdata = &(meta->data);
 		meta->philos[i].tid = malloc(sizeof(pthread_t));
-		meta->philos[i].tt_death = philo_atoul(meta->argv[2]);
-		meta->philos[i].tt_eat = philo_atoul(meta->argv[3]);
-		meta->philos[i].tt_sleep = philo_atoul(meta->argv[4]);
+		// meta->philos[i].tt_death = philo_atoul(meta->argv[2]);
+		// meta->philos[i].tt_eat = philo_atoul(meta->argv[3]);
+		// meta->philos[i].tt_sleep = philo_atoul(meta->argv[4]);
 		meta->philos[i].last_timestamp = 0;
 		meta->philos[i].last_meal = 0;
-		if (meta->opt_param_set == 1)
-		{
-			meta->philos[i].opt_param_set = 1;
-			meta->philos[i].max_dinners = philo_atouint(meta->argv[5]);
-		}
-		else
-			meta->philos[i].opt_param_set = 0;
+		// if (meta->opt_param_set == 1)
+		// {
+		// 	meta->philos[i].opt_param_set = 1;
+		// 	meta->philos[i].max_dinners = philo_atouint(meta->data.max_dinners);
+		// }
+		// else
+		// 	meta->philos[i].opt_param_set = 0;
 		meta->philos[i].log_mutex = &(meta->log_mutex);
 		meta->philos[i].n_dinners = 0;
 		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
 	}
 }
 
-void	create_threads(t_meta *meta)
+int	create_threads(t_meta *meta)
 {
 	if (aloc_philo_array(meta) == 0)
-		exit(EXIT_FAILURE);
+		return (1);
 	init_philos(meta);
+	return (0);
 }
 
-void	start_simulation(t_meta meta)
+void	start_simulation(t_meta *meta)
 {
 	unsigned int	i;
 
-	pthread_create(&(meta.overseer), NULL, oversee, &meta);
+	meta->data.sim_start_time = get_time_ms();
+	pthread_create(&(meta->overseer), NULL, oversee, meta);
 	i = 0;
-	while (i < meta.n_philos)
+	while (i < meta->n_philos)
 	{
-		pthread_create(meta.philos[i].tid, NULL, routine, &(meta.philos[i]));
+		meta->philos[i].sim_start_time = meta->data.sim_start_time; 
+		pthread_create(meta->philos[i].tid, NULL, routine, &(meta->philos[i]));
 		i++;
 	}
 	i = 0;
-	while (i < meta.n_philos)
+	while (i < meta->n_philos)
 	{
-		pthread_join(*(meta.philos[i].tid), NULL);
+		pthread_join(*(meta->philos[i].tid), NULL);
 		i++;
 	}
-	pthread_join(meta.overseer, NULL);
+	pthread_join(meta->overseer, NULL);
 	i = 0;
-	while (i < meta.n_philos)
+	while (i < meta->n_philos)
 	{
-		pthread_mutex_destroy(&(meta.philos[i].state_mutex));
-		free(meta.philos[i].tid);
+		pthread_mutex_destroy(&(meta->philos[i].state_mutex));
+		free(meta->philos[i].tid);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 14:50:54 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:38:27 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	print_log(t_philo *philo)
 {
+	int	state;
+
+	state = get_philo_state(philo);
 	pthread_mutex_lock(philo->log_mutex);
-	printf("%lu - ", philo->last_timestamp);
+	printf("%05lu - ", philo->last_timestamp);
 	printf("%d - ", philo->id);
-	if (philo->state == EATING)
+	if (state == EATING)
 		printf("is eating.\n");
-	else if (philo->state == SLEEPING)
+	else if (state == SLEEPING)
 		printf("is sleeping.\n");
-	else if (philo->state == THINKING)
+	else if (state == THINKING)
 		printf("is thinking.\n");
 	else
 		printf("is DED.\n");

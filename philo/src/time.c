@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:50:14 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/10 14:52:54 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:20:06 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@ unsigned long	get_time_ms(void)
 	return (time_ms);
 }
 
-unsigned long	get_timestamp(t_philo *philo)
+unsigned long	get_timestamp(t_meta *meta)
+{
+	unsigned long	timestamp;
+
+	timestamp = get_time_ms() - meta->data.sim_start_time;
+	return (timestamp);
+}
+
+unsigned long	philo_get_timestamp(t_philo *philo)
 {
 	unsigned long	timestamp;
 

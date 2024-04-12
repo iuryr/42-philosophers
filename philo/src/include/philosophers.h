@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/11 16:50:23 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:57:30 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,23 @@ typedef enum e_state
 	DED
 }	t_state;
 
+
+typedef struct s_simdata
+{
+	unsigned long	sim_start_time;
+	unsigned long	tt_death;
+	unsigned long	tt_eat;
+	unsigned long	tt_sleep;
+	unsigned int	max_dinners;
+	int				go_on;
+}	t_simdata;
+
 typedef struct s_philo
 {
 	pthread_t		*tid;
 	unsigned int	id;
 	t_state			state;
+	t_simdata		*simdata;
 	unsigned long	sim_start_time;
 	unsigned long	tt_death;
 	unsigned long	tt_eat;
@@ -48,24 +60,18 @@ typedef struct s_philo
 
 typedef struct s_meta
 {
-	int				argc;
-	char			**argv;
 	char			*error_msg;
-	unsigned long	sim_start_time;
+	t_simdata		data;
 	unsigned int	n_philos;
-	unsigned long	tt_death;
-	unsigned long	tt_eat;
-	unsigned long	tt_sleep;
 	unsigned int	opt_param_set;
-	unsigned int	max_dinners;
 	pthread_mutex_t	log_mutex;
 	t_philo			*philos;
 	pthread_t		overseer;
 }	t_meta;
 
 //philos
-void			create_threads(t_meta *meta);
-void			start_simulation(t_meta meta);
+int				create_threads(t_meta *meta);
+void			start_simulation(t_meta *meta);
 
 //routine
 void			*routine(void *arg);
@@ -75,10 +81,9 @@ void			think(t_philo *philo);
 void			change_state(char c, t_philo *philo);
 
 //overseer
-
 void			*oversee(void *arg);
-int				check_philo_alive(t_philo philo);
-void			kill_others(t_meta *meta);
+int				check_philo_alive(t_meta *meta, unsigned int i);
+
 //input validation
 void			set_meta(t_meta *meta, int argc, char **argv);
 int				validate_inputs(t_meta *meta);
@@ -87,7 +92,9 @@ int				validate_inputs(t_meta *meta);
 unsigned int	philo_atouint(const char *nptr);
 unsigned int	philo_atoul(const char *nptr);
 unsigned long	get_time_ms(void);
-unsigned long	get_timestamp(t_philo *philo);
+unsigned long	get_timestamp(t_meta *meta);
+unsigned long	philo_get_timestamp(t_philo *philo);
 void			print_log(t_philo *philo);
+int				get_philo_state(t_philo *philo);
 
 #endif //PHILOSOPHERS_H
