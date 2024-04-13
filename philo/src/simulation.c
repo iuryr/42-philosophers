@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/13 15:14:03 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:18:00 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,7 @@ static void	init_philos(t_meta *meta)
 		meta->philos[i].state = THINKING;
 		meta->philos[i].simdata = &(meta->simdata);
 		meta->philos[i].tid = malloc(sizeof(pthread_t));
-		// meta->philos[i].tt_death = philo_atoul(meta->argv[2]);
-		// meta->philos[i].tt_eat = philo_atoul(meta->argv[3]);
-		// meta->philos[i].tt_sleep = philo_atoul(meta->argv[4]);
 		meta->philos[i].last_meal = 0;
-		// if (meta->opt_param_set == 1)
-		// {
-		// 	meta->philos[i].opt_param_set = 1;
-		// 	meta->philos[i].max_dinners = philo_atouint(meta->data.max_dinners);
-		// }
-		// else
-		// 	meta->philos[i].opt_param_set = 0;
 		meta->philos[i].log_mutex = &(meta->log_mutex);
 		meta->philos[i].n_dinners = 0;
 		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
