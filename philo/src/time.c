@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:50:14 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/12 16:20:06 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:54:05 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned long	get_timestamp(t_meta *meta)
 {
 	unsigned long	timestamp;
 
-	timestamp = get_time_ms() - meta->data.sim_start_time;
+	timestamp = get_time_ms() - meta->simdata.sim_start_time;
 	return (timestamp);
 }
 

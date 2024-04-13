@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/12 16:47:40 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:14:03 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ static void	init_philos(t_meta *meta)
 	{
 		meta->philos[i].id = i + 1;
 		meta->philos[i].state = THINKING;
-		meta->philos[i].simdata = &(meta->data);
+		meta->philos[i].simdata = &(meta->simdata);
 		meta->philos[i].tid = malloc(sizeof(pthread_t));
 		// meta->philos[i].tt_death = philo_atoul(meta->argv[2]);
 		// meta->philos[i].tt_eat = philo_atoul(meta->argv[3]);
 		// meta->philos[i].tt_sleep = philo_atoul(meta->argv[4]);
-		meta->philos[i].last_timestamp = 0;
 		meta->philos[i].last_meal = 0;
 		// if (meta->opt_param_set == 1)
 		// {
@@ -62,12 +61,12 @@ void	start_simulation(t_meta *meta)
 {
 	unsigned int	i;
 
-	meta->data.sim_start_time = get_time_ms();
+	meta->simdata.sim_start_time = get_time_ms();
 	pthread_create(&(meta->overseer), NULL, oversee, meta);
 	i = 0;
 	while (i < meta->n_philos)
 	{
-		meta->philos[i].sim_start_time = meta->data.sim_start_time; 
+		meta->philos[i].sim_start_time = meta->simdata.sim_start_time;
 		pthread_create(meta->philos[i].tid, NULL, routine, &(meta->philos[i]));
 		i++;
 	}

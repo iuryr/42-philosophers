@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/12 17:28:03 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:11:46 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	*oversee(void *arg)
 	meta = (t_meta *) arg;
 	usleep(20000);
 	i = 0;
-	while (i < meta->n_philos && meta->data.go_on)
+	while (i < meta->n_philos && read_sim_status(&(meta->simdata)))
 	{
 		if (check_philo_alive(meta, i) == 0)
 		{
-			if (meta->opt_param_set == 1
-				&& meta->philos[i].n_dinners == meta->data.max_dinners)
-				break ;
+			// if (meta->opt_param_set == 1
+			// 	&& meta->philos[i].n_dinners == meta->simdata.max_dinners)
+			// 	break ;
 			change_state('D', &(meta->philos[i]));
 			print_log(&(meta->philos[i]));
-			meta->data.go_on = 0;
+			change_sim_status(&(meta->simdata));
 			break ;
 		}
 		i++;
@@ -42,7 +42,8 @@ void	*oversee(void *arg)
 int	check_philo_alive(t_meta *meta, unsigned int i)
 {
 	pthread_mutex_lock(&(meta->philos[i].state_mutex));
-	if ((get_timestamp(meta) - meta->philos[i].last_meal < meta->data.tt_death))
+	if ((get_timestamp(meta) - meta->philos[i].last_meal
+			< meta->simdata.tt_death))
 	{
 		pthread_mutex_unlock(&(meta->philos[i].state_mutex));
 		return (1);
@@ -57,21 +58,21 @@ int	get_philo_state(t_philo *philo)
 	if (philo->state == SLEEPING)
 	{
 		pthread_mutex_unlock(&(philo->state_mutex));
-		return SLEEPING;
+		return (SLEEPING);
 	}
 	if (philo->state == EATING)
 	{
 		pthread_mutex_unlock(&(philo->state_mutex));
-		return EATING;
+		return (EATING);
 	}
 	if (philo->state == DED)
 	{
 		pthread_mutex_unlock(&(philo->state_mutex));
-		return DED;
+		return (DED);
 	}
 	else
 	{
 		pthread_mutex_unlock(&(philo->state_mutex));
-		return THINKING;
+		return (THINKING);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/12 16:57:30 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:14:23 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum e_state
 	DED
 }	t_state;
 
-
 typedef struct s_simdata
 {
 	unsigned long	sim_start_time;
@@ -36,6 +35,7 @@ typedef struct s_simdata
 	unsigned long	tt_eat;
 	unsigned long	tt_sleep;
 	unsigned int	max_dinners;
+	pthread_mutex_t	sim_mutex;
 	int				go_on;
 }	t_simdata;
 
@@ -46,14 +46,12 @@ typedef struct s_philo
 	t_state			state;
 	t_simdata		*simdata;
 	unsigned long	sim_start_time;
-	unsigned long	tt_death;
-	unsigned long	tt_eat;
-	unsigned long	tt_sleep;
 	unsigned int	n_dinners;
-	unsigned int	opt_param_set;
 	unsigned int	max_dinners;
-	unsigned long	last_timestamp;
 	unsigned long	last_meal;
+	unsigned long	last_sleep;
+	unsigned long	last_think;
+	unsigned long	time_of_death;
 	pthread_mutex_t	*log_mutex;
 	pthread_mutex_t	state_mutex;
 }	t_philo;
@@ -61,7 +59,7 @@ typedef struct s_philo
 typedef struct s_meta
 {
 	char			*error_msg;
-	t_simdata		data;
+	t_simdata		simdata;
 	unsigned int	n_philos;
 	unsigned int	opt_param_set;
 	pthread_mutex_t	log_mutex;
@@ -96,5 +94,7 @@ unsigned long	get_timestamp(t_meta *meta);
 unsigned long	philo_get_timestamp(t_philo *philo);
 void			print_log(t_philo *philo);
 int				get_philo_state(t_philo *philo);
+int				read_sim_status(t_simdata *simdata);
+void			change_sim_status(t_simdata *simdata);
 
 #endif //PHILOSOPHERS_H
