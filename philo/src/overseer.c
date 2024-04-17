@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/17 16:02:54 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:15:38 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_philo_alive(t_meta *meta, unsigned int i)
 	pthread_mutex_lock(&(meta->philos[i].state_mutex));
 	if ((get_timestamp(meta) - meta->philos[i].last_meal
 			< meta->simdata.tt_death)
-		&& meta->philos[i].state != DED)
+		|| meta->philos[i].state == DED)
 	{
 		pthread_mutex_unlock(&(meta->philos[i].state_mutex));
 		return (1);
