@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/13 14:30:16 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:03:18 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,21 @@ void	change_sim_status(t_simdata *simdata)
 	pthread_mutex_lock(&(simdata->sim_mutex));
 	simdata->go_on = 0;
 	pthread_mutex_unlock(&(simdata->sim_mutex));
+}
+
+unsigned int	read_stuffed_philos(t_simdata *simdata)
+{
+	unsigned int	stuffed_philos;
+
+	pthread_mutex_lock(&(simdata->stuffed_mutex));
+	stuffed_philos = simdata->stuffed_philos;
+	pthread_mutex_unlock(&(simdata->stuffed_mutex));
+	return (stuffed_philos);
+}
+
+void	update_stuffed_philos(t_simdata *simdata)
+{
+	pthread_mutex_lock(&(simdata->stuffed_mutex));
+	simdata->stuffed_philos++;
+	pthread_mutex_unlock(&(simdata->stuffed_mutex));
 }

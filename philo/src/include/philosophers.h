@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/13 15:14:23 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:45:12 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_simdata
 	unsigned long	tt_eat;
 	unsigned long	tt_sleep;
 	unsigned int	max_dinners;
+	unsigned int	stuffed_philos;
+	pthread_mutex_t	stuffed_mutex;
 	pthread_mutex_t	sim_mutex;
 	int				go_on;
 }	t_simdata;
@@ -96,5 +98,7 @@ void			print_log(t_philo *philo);
 int				get_philo_state(t_philo *philo);
 int				read_sim_status(t_simdata *simdata);
 void			change_sim_status(t_simdata *simdata);
+unsigned int	read_stuffed_philos(t_simdata *simdata);
+void			update_stuffed_philos(t_simdata *simdata);
 
 #endif //PHILOSOPHERS_H

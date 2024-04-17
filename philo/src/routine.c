@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/13 15:13:37 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:03:39 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	*routine(void *arg)
 	philo = (t_philo *) arg;
 	while (42 && read_sim_status(philo->simdata))
 	{
-		// if (philo->n_dinners == philo->simdata->max_dinners)
-		// 	change_state('D', philo);
 		eat(philo);
 		philo_sleep(philo);
 		think(philo);
+		if (philo->n_dinners == philo->simdata->max_dinners)
+		{
+			update_stuffed_philos(philo->simdata);
+			return (NULL);
+		}
 	}
 	return (NULL);
 }
