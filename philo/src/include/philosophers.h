@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/15 11:45:12 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:31:35 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_simdata
 	unsigned int	stuffed_philos;
 	pthread_mutex_t	stuffed_mutex;
 	pthread_mutex_t	sim_mutex;
+	pthread_mutex_t	*forks;
 	int				go_on;
 }	t_simdata;
 

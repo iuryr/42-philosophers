@@ -6,11 +6,23 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/15 14:39:50 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:00:46 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
+
+static void	init_forks_mutexes(t_meta *meta)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < meta->n_philos)
+	{
+		pthread_mutex_init(&(meta->simdata.forks[i]), NULL);
+		i++;
+	}
+}
 
 void	set_meta(t_meta *meta, int argc, char **argv)
 {
@@ -21,6 +33,8 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	meta->simdata.tt_sleep = philo_atouint(argv[4]);
 	meta->simdata.stuffed_philos = 0;
 	meta->simdata.go_on = 1;
+	meta->simdata.forks = malloc(meta->n_philos * sizeof(pthread_mutex_t));
+	init_forks_mutexes(meta);
 	pthread_mutex_init(&(meta->log_mutex), NULL);
 	pthread_mutex_init(&(meta->simdata.sim_mutex), NULL);
 	pthread_mutex_init(&(meta->simdata.stuffed_mutex), NULL);
