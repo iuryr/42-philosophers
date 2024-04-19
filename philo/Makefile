@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc #-fsanitize=thread
-FLAGS = -Wall -Wextra -Werror -Ofast
+FLAGS = -Wall -Wextra -Werror #-Ofast
 DEBUG_FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 LIBS = -pthread

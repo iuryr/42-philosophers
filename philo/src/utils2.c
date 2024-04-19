@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/17 16:03:18 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:51:12 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void	print_log(t_philo *philo)
 		printf("%05lu - %d - is thinking.\n", philo->last_think, philo->id);
 	else
 		printf("%05lu - %d - is DED.\n", philo->time_of_death, philo->id);
+	pthread_mutex_unlock(philo->log_mutex);
+}
+
+void	print_fork(t_philo *philo)
+{
+	pthread_mutex_lock(philo->log_mutex);
+	printf("%05lu - %d - grabbed the forks.\n", philo_get_timestamp(philo), philo->id);
 	pthread_mutex_unlock(philo->log_mutex);
 }
 

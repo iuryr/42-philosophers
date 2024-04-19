@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/13 15:18:00 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:31:49 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ static void	init_philos(t_meta *meta)
 		meta->philos[i].last_meal = 0;
 		meta->philos[i].log_mutex = &(meta->log_mutex);
 		meta->philos[i].n_dinners = 0;
+		meta->philos[i].right = &(meta->simdata.forks[i]);
+		if (meta->n_philos == 1)
+			meta->philos[i].left = (pthread_mutex_t *) NULL;
+		else if (i != meta->n_philos - 1)
+			meta->philos[i].left = &(meta->simdata.forks[i+1]);
+		else
+			meta->philos[i].left = &(meta->simdata.forks[0]);
 		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
 	}
 }

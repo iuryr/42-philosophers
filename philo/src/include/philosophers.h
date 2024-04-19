@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/18 16:31:35 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:00:44 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_state
 
 typedef struct s_simdata
 {
+	unsigned int	n_philos;
 	unsigned long	sim_start_time;
 	unsigned long	tt_death;
 	unsigned long	tt_eat;
@@ -57,6 +58,8 @@ typedef struct s_philo
 	unsigned long	time_of_death;
 	pthread_mutex_t	*log_mutex;
 	pthread_mutex_t	state_mutex;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
 }	t_philo;
 
 typedef struct s_meta
@@ -80,6 +83,9 @@ void			eat(t_philo *philo);
 void			philo_sleep(t_philo *philo);
 void			think(t_philo *philo);
 void			change_state(char c, t_philo *philo);
+int				grab_forks(t_philo *philo);
+int				grab_forks_even(t_philo *philo);
+int				grab_forks_odd(t_philo *philo);
 
 //overseer
 void			*oversee(void *arg);
@@ -96,6 +102,7 @@ unsigned long	get_time_ms(void);
 unsigned long	get_timestamp(t_meta *meta);
 unsigned long	philo_get_timestamp(t_philo *philo);
 void			print_log(t_philo *philo);
+void			print_fork(t_philo *philo);
 int				get_philo_state(t_philo *philo);
 int				read_sim_status(t_simdata *simdata);
 void			change_sim_status(t_simdata *simdata);

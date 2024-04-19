@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/18 17:00:46 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:07:25 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 {
 	meta->error_msg = NULL;
 	meta->n_philos = philo_atouint(argv[1]);
+	meta->simdata.n_philos = meta->n_philos;
 	meta->simdata.tt_death = philo_atouint(argv[2]);
 	meta->simdata.tt_eat = philo_atouint(argv[3]);
 	meta->simdata.tt_sleep = philo_atouint(argv[4]);
