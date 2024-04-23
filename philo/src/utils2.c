@@ -6,33 +6,63 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/19 17:51:12 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:09:09 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
 
-void	print_log(t_philo *philo)
-{
-	int	state;
+// void	print_log(t_philo *philo)
+// {
+// 	int	state;
+//
+// 	state = get_philo_state(philo);
+// 	if (read_sim_status(philo->simdata) == 1)
+// 	{
+// 		pthread_mutex_lock(philo->log_mutex);
+// 		if (state == EATING)
+// 			printf("%05lu %d is eating\n", philo->last_meal, philo->id);
+// 		else if (state == SLEEPING)
+// 			printf("%05lu %d is sleeping\n", philo->last_sleep, philo->id);
+// 		else
+// 			printf("%05lu %d is thinking\n", philo->last_think, philo->id);
+// 		pthread_mutex_unlock(philo->log_mutex);
+// 	}
+// }
 
-	state = get_philo_state(philo);
+void	print_eat(t_philo *philo)
+{
 	pthread_mutex_lock(philo->log_mutex);
-	if (state == EATING)
-		printf("%05lu - %d - is eating.\n", philo->last_meal, philo->id);
-	else if (state == SLEEPING)
-		printf("%05lu - %d - is sleeping.\n", philo->last_sleep, philo->id);
-	else if (state == THINKING)
-		printf("%05lu - %d - is thinking.\n", philo->last_think, philo->id);
-	else
-		printf("%05lu - %d - is DED.\n", philo->time_of_death, philo->id);
+	printf("%05lu %d is eating\n", philo->last_meal, philo->id);
+	pthread_mutex_unlock(philo->log_mutex);
+}
+
+void	print_sleep(t_philo *philo)
+{
+	pthread_mutex_lock(philo->log_mutex);
+	printf("%05lu %d is sleeping\n", philo->last_sleep, philo->id);
+	pthread_mutex_unlock(philo->log_mutex);
+}
+
+void	print_think(t_philo *philo)
+{
+	pthread_mutex_lock(philo->log_mutex);
+	printf("%05lu %d is thinking\n", philo->last_think, philo->id);
+	pthread_mutex_unlock(philo->log_mutex);
+}
+
+void	print_dead(t_philo *philo)
+{
+	pthread_mutex_lock(philo->log_mutex);
+	printf("%05lu %d died\n", philo->time_of_death, philo->id);
 	pthread_mutex_unlock(philo->log_mutex);
 }
 
 void	print_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->log_mutex);
-	printf("%05lu - %d - grabbed the forks.\n", philo_get_timestamp(philo), philo->id);
+	if (read_sim_status(philo->simdata) == 1)
+		printf("%05lu %d grabbed the forks\n", philo_get_timestamp(philo), philo->id);
 	pthread_mutex_unlock(philo->log_mutex);
 }
 

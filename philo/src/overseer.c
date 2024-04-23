@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/19 18:32:09 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:05:20 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	*oversee(void *arg)
 	{
 		if (check_philo_alive(meta, i) == 0)
 		{
-			print_log(&(meta->philos[i]));
-			change_sim_status(&(meta->simdata));
+			printf("monitor\n");
 			break ;
 		}
 		i++;
@@ -48,6 +47,8 @@ int	check_philo_alive(t_meta *meta, unsigned int i)
 	}
 	meta->philos[i].time_of_death = get_timestamp(meta);
 	meta->philos[i].state = DED;
+	print_dead(&(meta->philos[i]));
+	change_sim_status(meta->philos[i].simdata);
 	pthread_mutex_unlock(&(meta->philos[i].state_mutex));
 	return (0);
 }

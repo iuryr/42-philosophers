@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/19 16:00:44 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:54:58 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ void			eat(t_philo *philo);
 void			philo_sleep(t_philo *philo);
 void			think(t_philo *philo);
 void			change_state(char c, t_philo *philo);
-int				grab_forks(t_philo *philo);
-int				grab_forks_even(t_philo *philo);
-int				grab_forks_odd(t_philo *philo);
+int				eat_even(t_philo *philo);
+int				eat_odd(t_philo *philo);
 
 //overseer
 void			*oversee(void *arg);
@@ -102,6 +101,10 @@ unsigned long	get_time_ms(void);
 unsigned long	get_timestamp(t_meta *meta);
 unsigned long	philo_get_timestamp(t_philo *philo);
 void			print_log(t_philo *philo);
+void			print_eat(t_philo *philo);
+void			print_sleep(t_philo *philo);
+void			print_think(t_philo *philo);
+void			print_dead(t_philo *philo);
 void			print_fork(t_philo *philo);
 int				get_philo_state(t_philo *philo);
 int				read_sim_status(t_simdata *simdata);
