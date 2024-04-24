@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 17:27:42 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:12:16 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
-	while (read_sim_status(philo->simdata) != 1);
+	while (read_sim_status(philo->simdata) != 1)
+		;
 	while (42 && read_sim_status(philo->simdata))
 	{
 		eat(philo);
@@ -42,7 +43,8 @@ void	eat(t_philo *philo)
 	else
 	{
 		if (eat_odd(philo) == 1)
-			while(get_philo_state(philo) != DED);
+			while (get_philo_state(philo) != DED)
+				;
 	}
 	philo->n_dinners++;
 }
@@ -78,7 +80,7 @@ int	eat_odd(t_philo *philo)
 		pthread_mutex_unlock(philo->left);
 		return (1);
 	}
-		pthread_mutex_lock(philo->right);
+	pthread_mutex_lock(philo->right);
 	if (read_sim_status(philo->simdata) != 0)
 	{
 		print_fork(philo);
@@ -90,47 +92,10 @@ int	eat_odd(t_philo *philo)
 	return (0);
 }
 
-
 void	philo_sleep(t_philo *philo)
 {
 	if (get_philo_state(philo) == DED || read_sim_status(philo->simdata) == 0)
 		return ;
 	change_state('S', philo);
 	usleep(philo->simdata->tt_sleep * 1000);
-}
-
-void	think(t_philo *philo)
-{
-	if (get_philo_state(philo) == DED || read_sim_status(philo->simdata) == 0)
-		return ;
-	change_state('T', philo);
-}
-
-void	change_state(char c, t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->state_mutex));
-	if (c == 'S' && philo->state != DED)
-	{
-		philo->state = SLEEPING;
-		philo->last_sleep = philo_get_timestamp(philo);
-		print_sleep(philo);
-	}
-	else if (c == 'E' && philo->state != DED)
-	{
-		philo->state = EATING;
-		philo->last_meal = philo_get_timestamp(philo);
-		print_eat(philo);
-	}
-	else if (c == 'T' && philo->state != DED)
-	{
-		philo->state = THINKING;
-		philo->last_think = philo_get_timestamp(philo);
-		print_think(philo);
-	}
-	else if (philo->state != DED)
-	{
-		philo->state = DED;
-		philo->time_of_death = philo_get_timestamp(philo);
-	}
-	pthread_mutex_unlock(&(philo->state_mutex));
 }

@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 17:43:22 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:06:12 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	init_philos(t_meta *meta)
 		if (meta->n_philos == 1)
 			meta->philos[i].left = (pthread_mutex_t *) NULL;
 		else if (i != meta->n_philos - 1)
-			meta->philos[i].left = &(meta->simdata.forks[i+1]);
+			meta->philos[i].left = &(meta->simdata.forks[i + 1]);
 		else
 			meta->philos[i].left = &(meta->simdata.forks[0]);
 		pthread_mutex_init(&(meta->philos[i].state_mutex), NULL);
@@ -75,6 +75,12 @@ void	start_simulation(t_meta *meta)
 		i++;
 	}
 	pthread_join(meta->overseer, NULL);
+}
+
+void	end_simulation(t_meta *meta)
+{
+	unsigned int	i;
+
 	i = 0;
 	while (i < meta->n_philos)
 	{

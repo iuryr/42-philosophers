@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:29:33 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/23 16:54:58 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:05:36 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_meta
 //philos
 int				create_threads(t_meta *meta);
 void			start_simulation(t_meta *meta);
+void			end_simulation(t_meta *meta);
 
 //routine
 void			*routine(void *arg);
