@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 14:50:56 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:26:49 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,22 @@ void	eat(t_philo *philo)
 	if (philo->id % 2 == 0)
 		eat_even(philo);
 	else
-		eat_odd(philo);
+	{
+		if (eat_odd(philo) == 1)
+			// while(get_philo_state(philo) != DED);
+	}
 	philo->n_dinners++;
 }
 
 int	eat_even(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left);
+	pthread_mutex_lock(philo->right);
 	if (read_sim_status(philo->simdata) == 0)
 	{
-		pthread_mutex_unlock(philo->left);
+		pthread_mutex_unlock(philo->right);
 		return (1);
 	}
-	pthread_mutex_lock(philo->right);
+	pthread_mutex_lock(philo->left);
 	if (read_sim_status(philo->simdata) != 0)
 	{
 		print_fork(philo);
@@ -66,19 +69,16 @@ int	eat_even(t_philo *philo)
 
 int	eat_odd(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right);
+	usleep(500);
+	if (philo->left == NULL)
+		return (1);
+	pthread_mutex_lock(philo->left);
 	if (read_sim_status(philo->simdata) == 0)
 	{
-		pthread_mutex_unlock(philo->right);
+		pthread_mutex_unlock(philo->left);
 		return (1);
 	}
-	if (philo->left != NULL)
-		pthread_mutex_lock(philo->left);
-	else
-	{
-		pthread_mutex_unlock(philo->right);
-		return (1);
-	}
+		pthread_mutex_lock(philo->right);
 	if (read_sim_status(philo->simdata) != 0)
 	{
 		print_fork(philo);
