@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 14:43:49 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:41:24 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	pthread_mutex_init(&(meta->simdata.sim_mutex), NULL);
 	pthread_mutex_init(&(meta->simdata.stuffed_mutex), NULL);
 	if (argc == 6)
+	{
+		meta->opt_param_set = 1;
 		meta->simdata.max_dinners = philo_atouint(argv[5]);
+	}
 	else
 		meta->simdata.max_dinners = 0;
 }
@@ -58,9 +61,7 @@ int	validate_inputs(t_meta *meta)
 		meta->error_msg = "Time to (die|eat|sleep) must be positive integers\n";
 		return (1);
 	}
-	if (meta->opt_param_set == 0)
-		return (0);
-	if (meta->opt_param_set == 1 && meta->simdata.max_dinners == 0)
+	if (meta->opt_param_set == 1 && meta->simdata.max_dinners <= 0)
 	{
 		meta->error_msg = "Max number of dinners must be a positive integer\n";
 		return (1);

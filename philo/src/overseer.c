@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 14:50:56 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:28:22 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	*oversee(void *arg)
 		&& read_stuffed_philos(&(meta->simdata)) != meta->n_philos)
 	{
 		if (check_philo_alive(meta, i) == 0)
-		{
-			printf("monitor\n");
 			break ;
-		}
 		i++;
 		if (i == meta->n_philos)
 			i = 0;

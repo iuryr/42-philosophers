@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 14:55:50 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:43:22 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	start_simulation(t_meta *meta)
 		free(meta->philos[i].tid);
 		i++;
 	}
+	free(meta->simdata.forks);
 }
