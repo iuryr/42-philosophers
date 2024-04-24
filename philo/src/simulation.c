@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:28:47 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/19 17:31:49 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:55:50 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	start_simulation(t_meta *meta)
 	unsigned int	i;
 
 	meta->simdata.sim_start_time = get_time_ms();
-	pthread_create(&(meta->overseer), NULL, oversee, meta);
 	i = 0;
 	while (i < meta->n_philos)
 	{
@@ -68,6 +67,8 @@ void	start_simulation(t_meta *meta)
 		i++;
 	}
 	i = 0;
+	pthread_create(&(meta->overseer), NULL, oversee, meta);
+	change_sim_status(&meta->simdata);
 	while (i < meta->n_philos)
 	{
 		pthread_join(*(meta->philos[i].tid), NULL);

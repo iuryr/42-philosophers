@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:12:26 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/23 17:05:20 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:50:56 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*oversee(void *arg)
 	unsigned int	i;
 
 	meta = (t_meta *) arg;
-	usleep(20000);
+	while (read_sim_status(&(meta->simdata)) != 1);
 	i = 0;
 	while (i < meta->n_philos && read_sim_status(&(meta->simdata))
 		&& read_stuffed_philos(&(meta->simdata)) != meta->n_philos)

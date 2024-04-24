@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:39:49 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/19 15:07:25 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:43:49 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_meta(t_meta *meta, int argc, char **argv)
 	meta->simdata.tt_eat = philo_atouint(argv[3]);
 	meta->simdata.tt_sleep = philo_atouint(argv[4]);
 	meta->simdata.stuffed_philos = 0;
-	meta->simdata.go_on = 1;
+	meta->simdata.go_on = 0;
 	meta->simdata.forks = malloc(meta->n_philos * sizeof(pthread_mutex_t));
 	init_forks_mutexes(meta);
 	pthread_mutex_init(&(meta->log_mutex), NULL);

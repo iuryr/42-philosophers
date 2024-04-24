@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:36:07 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/23 17:09:09 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:50:56 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ int	read_sim_status(t_simdata *simdata)
 void	change_sim_status(t_simdata *simdata)
 {
 	pthread_mutex_lock(&(simdata->sim_mutex));
-	simdata->go_on = 0;
+	if (simdata->go_on == 1)
+		simdata->go_on = 0;
+	else
+		simdata->go_on = 1;
 	pthread_mutex_unlock(&(simdata->sim_mutex));
 }
 

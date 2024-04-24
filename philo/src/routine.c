@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/23 16:16:05 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:50:56 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *) arg;
+	while (read_sim_status(philo->simdata) != 1);
 	while (42 && read_sim_status(philo->simdata))
 	{
 		eat(philo);
