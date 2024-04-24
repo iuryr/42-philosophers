@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:07:10 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/24 17:26:49 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:27:42 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	eat(t_philo *philo)
 	else
 	{
 		if (eat_odd(philo) == 1)
-			// while(get_philo_state(philo) != DED);
+			while(get_philo_state(philo) != DED);
 	}
 	philo->n_dinners++;
 }
