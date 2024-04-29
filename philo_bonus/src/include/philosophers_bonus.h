@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:36:40 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 16:19:04 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:11:02 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,11 @@ int				validate_inputs(int argc, char **argv);
 
 /********************** simulation *****************/
 void			prepare_philo(t_philo *philo, int argc, char **argv);
+void			unlink_semaphores(void);
 void			prepare_semaphores(t_semaphore_set *semaphore_set, char **argv);
+void			close_semaphores(t_semaphore_set *semaphore_set);
 void			routine(t_philo *philo, t_semaphore_set *semaphore_set);
+int				am_i_alive(t_philo *philo, t_semaphore_set *semaphore_set);
 
 /********************** time *****************/
 unsigned long	get_time_ms(void);

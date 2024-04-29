@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:52:53 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 16:09:10 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:50:38 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	main(int argc, char **argv)
 	pid_t			child_pid;
 	unsigned int	i;
 
-	sem_unlink("/simulation_sem");
-	sem_unlink("/print_sem");
-	sem_unlink("/forks_sem");
+	unlink_semaphores();
 	validate_inputs(argc, argv);
 	prepare_semaphores(&semaphore_set, argv);
 	prepare_philo(&philo, argc, argv);
@@ -35,11 +33,10 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	sem_post(semaphore_set.simulation_sem);
-	sleep(10);
+	waitpid(-1, NULL, 0);
+	kill(0, SIGKILL);
 	sem_close(semaphore_set.simulation_sem);
-	sem_unlink("/simulation_sem");
-	sem_unlink("/print_sem");
-	sem_unlink("/forks_sem");
+	unlink_semaphores();
 	return (EXIT_SUCCESS);
 }
 

@@ -6,11 +6,25 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:59:27 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 16:16:38 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:11:02 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers_bonus.h"
+
+void	unlink_semaphores(void)
+{
+	sem_unlink("/simulation_sem");
+	sem_unlink("/print_sem");
+	sem_unlink("/forks_sem");
+}
+
+void	close_semaphores(t_semaphore_set *semaphore_set)
+{
+	sem_close(semaphore_set->simulation_sem);
+	sem_close(semaphore_set->print_sem);
+	sem_close(semaphore_set->forks_sem);
+}
 
 void	prepare_semaphores(t_semaphore_set *semaphore_set, char **argv)
 {
