@@ -10,7 +10,10 @@ SRC_DIR = src/
 SRC_FILES =  $(addprefix $(SRC_DIR), \
 			 main.c \
 			 input_validation.c \
-			 utils.c)
+			 semaphores.c \
+			 simulation_utils.c \
+			 utils.c \
+			 wrapper_functions.c)
 
 OBJ_DIR = obj/
 OBJ_FILES = $(addprefix $(OBJ_DIR), $(notdir $(SRC_FILES:.c=.o)))

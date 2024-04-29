@@ -6,14 +6,16 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:59:27 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/26 18:00:52 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:15:37 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers_bonus.h"
 
-void	prepare_semaphores(sem_t ***semaphores)
+void	prepare_semaphores(t_semaphore_set *semaphore_set)
 {
-	*semaphores = malloc(sizeof(sem_t **));
-	(*semaphores)[0] = sem_open("/start_simulation", O_CREAT, 666, 0);
+	semaphore_set->simulation_sem = sem_open("/simulation_sem", O_CREAT,
+		0666, 0);
+	semaphore_set->print_sem = sem_open("/print_sem", O_CREAT,
+		0666, 1);
 }
