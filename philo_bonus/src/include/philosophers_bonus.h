@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:36:40 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 15:05:31 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:19:04 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_semaphore_set
 {
 	sem_t	*simulation_sem;
 	sem_t	*print_sem;
+	sem_t	*reach_table_sem;
+	sem_t	*forks_sem;
 }	t_semaphore_set;
 
 typedef struct s_philo
@@ -41,6 +43,7 @@ typedef struct s_philo
 	unsigned long	last_meal;
 	unsigned long	last_sleep;
 	unsigned long	last_think;
+	unsigned long	last_grab;
 	unsigned long	time_of_death;
 	unsigned int	n_dinners;
 	unsigned int	opt_param;
@@ -58,7 +61,7 @@ int				validate_inputs(int argc, char **argv);
 
 /********************** simulation *****************/
 void			prepare_philo(t_philo *philo, int argc, char **argv);
-void			prepare_semaphores(t_semaphore_set *semaphore_set);
+void			prepare_semaphores(t_semaphore_set *semaphore_set, char **argv);
 void			routine(t_philo *philo, t_semaphore_set *semaphore_set);
 
 /********************** time *****************/
