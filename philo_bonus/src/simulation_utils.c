@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:20:11 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/26 16:39:44 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:49:22 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	prepare_philo(t_philo *philo, int argc, char **argv)
 	philo->tt_death = philo_atoul(argv[2]);
 	philo->tt_eat = philo_atoul(argv[3]);
 	philo->tt_sleep = philo_atoul(argv[4]);
+	philo->sim_start_time = get_time_ms();
 	philo->last_meal = 0;
+	philo->last_sleep = 0;
+	philo->last_think = 0;
+	philo->time_of_death = 0;
 	philo->n_dinners = 0;
 	if (argc == 6)
 	{

@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:36:40 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 12:14:46 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:05:31 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ typedef struct s_philo
 	unsigned long	tt_death;
 	unsigned long	tt_eat;
 	unsigned long	tt_sleep;
+	unsigned long	sim_start_time;
 	unsigned long	last_meal;
+	unsigned long	last_sleep;
+	unsigned long	last_think;
+	unsigned long	time_of_death;
 	unsigned int	n_dinners;
 	unsigned int	opt_param;
 	unsigned int	max_dinners;
@@ -55,6 +59,15 @@ int				validate_inputs(int argc, char **argv);
 /********************** simulation *****************/
 void			prepare_philo(t_philo *philo, int argc, char **argv);
 void			prepare_semaphores(t_semaphore_set *semaphore_set);
+void			routine(t_philo *philo, t_semaphore_set *semaphore_set);
+
+/********************** time *****************/
+unsigned long	get_time_ms(void);
+unsigned long	get_timestamp(t_philo *philo);
+
+/********************** logging *****************/
+int				print_log(char c, t_philo *philo,
+					t_semaphore_set *semaphore_set);
 
 /********************** utils **********************/
 
