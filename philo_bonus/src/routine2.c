@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:41:37 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 18:25:36 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:23:43 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	am_i_alive(t_philo *philo, t_semaphore_set *semaphore_set)
 		philo->time_of_death = get_timestamp(philo);
 		print_log('D', philo, semaphore_set);
 		close_semaphores(semaphore_set);
-		exit(2);
+		exit(DED);
 	}
 }

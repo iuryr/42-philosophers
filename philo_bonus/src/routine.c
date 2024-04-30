@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:53:08 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 18:41:09 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:15:38 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	philo_sleep(t_philo	*philo, t_semaphore_set *semaphore_set)
 	philo->last_sleep = get_timestamp(philo);
 	am_i_alive(philo, semaphore_set);
 	print_log('S', philo, semaphore_set);
-	while (get_time_ms() - philo->last_sleep <= philo->tt_sleep)
+	while (get_timestamp(philo) - philo->last_sleep <= philo->tt_sleep)
 	{
 		am_i_alive(philo, semaphore_set);
 	}

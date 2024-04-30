@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:36:40 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 18:11:02 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:12:24 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# ifndef DED
+# define DED 2
+# endif //DED
 
 typedef struct s_semaphore_set
 {
@@ -49,6 +53,12 @@ typedef struct s_philo
 	unsigned int	opt_param;
 	unsigned int	max_dinners;
 }	t_philo;
+
+typedef struct s_child_info
+{
+	pid_t	child[200];
+	int		exit_status;
+}	t_child_info;
 
 /*** input validation ***/
 
