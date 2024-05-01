@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:17:41 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/29 17:29:28 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:47:53 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 void	safe_print(char c, t_philo *philo, t_semaphore_set *semaphore_set)
 {
 	sem_wait(semaphore_set->print_sem);
+	if (*(int *) semaphore_set->simulation_sem == 0)
+	{
+		sem_post(semaphore_set->print_sem);
+		close_semaphores(semaphore_set);
+		exit(1);
+	}
 	if (c == 'E')
 		printf("%05lu %d is eating\n", philo->last_meal, philo->id);
 	else if (c == 'S')
@@ -24,7 +30,10 @@ void	safe_print(char c, t_philo *philo, t_semaphore_set *semaphore_set)
 	else if (c == 'F')
 		printf("%05lu %d grabbed forks\n", philo->last_grab, philo->id);
 	else if (c == 'D')
+	{
 		printf("%05lu %d died\n", philo->time_of_death, philo->id);
+		sem_wait(semaphore_set->simulation_sem);
+	}
 	sem_post(semaphore_set->print_sem);
 }
 
