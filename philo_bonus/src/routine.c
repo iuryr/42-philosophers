@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:53:08 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/30 15:15:38 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/05/01 11:01:06 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	grab_forks(t_philo	*philo, t_semaphore_set *semaphore_set)
 
 static int	eat(t_philo	*philo, t_semaphore_set *semaphore_set)
 {
+	philo->n_dinners++;
 	philo->last_meal = get_timestamp(philo);
 	print_log('E', philo, semaphore_set);
 	usleep(philo->tt_eat * 1000);
@@ -62,6 +63,11 @@ void	routine(t_philo *philo, t_semaphore_set *semaphore_set)
 		;
 	while (*(int *) semaphore_set->simulation_sem == 1 && am_i_alive(philo, semaphore_set))
 	{
+		if (philo->opt_param == 1 && philo->n_dinners == philo->max_dinners)
+		{
+			close_semaphores(semaphore_set);
+			exit(0);
+		}
 		grab_forks(philo, semaphore_set);
 		eat(philo, semaphore_set);
 		philo_sleep(philo, semaphore_set);
