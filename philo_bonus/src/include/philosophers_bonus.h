@@ -6,7 +6,7 @@
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:36:40 by iusantos          #+#    #+#             */
-/*   Updated: 2024/04/30 17:12:24 by iusantos         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:26:15 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 
 # ifndef DED
-# define DED 2
+#  define DED 2
 # endif //DED
 
 typedef struct s_semaphore_set
